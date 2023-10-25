@@ -23,6 +23,9 @@
             <!-- Settings Dropdown -->
             @auth
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+              <x-nav-link :href="route('users.all')" :active="request()->routeIs('users.all')">
+                {{ __('All users') }}
+            </x-nav-link>
               <span>You are a {{ Auth::user()->role->role_name }}</span>
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
