@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,8 +32,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/users', [UserController::class, 'showAll'])->name('users.all');
     Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
-
-
+    Route::get('/projects', [ProjectController::class, 'show'])->name('projects.show');
     
 });
 

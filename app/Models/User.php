@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Project;
 
 class User extends Authenticatable
 {
@@ -50,5 +51,9 @@ class User extends Authenticatable
 
     public function role(): BelongsTo {
       return $this->belongsTo(Role::class); 
+    }
+
+    public function projects(){
+      return $this->belongsToMany(Project::class);
     }
 }
