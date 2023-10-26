@@ -13,9 +13,19 @@ class Project extends Model
 
   protected $fillable = [
     'title',
-    'address',
+    'city',
+    'county',
+    'parish',
+    'village',
+    'street',
+    'house',
+    'apartment',
     'due_date',
     'status',
+  ];
+
+  protected $casts = [
+    'status' => StatusEnum::class
   ];
 
   public function users()

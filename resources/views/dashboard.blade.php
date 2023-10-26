@@ -14,7 +14,8 @@
         <div>
           @auth
             @if (Auth::user()->role->id == 1)
-              <a href="{{ route('projects.show') }}">Show all projects</a>
+              <a href="{{ route('projects.index') }}">Show all projects</a>
+              <a href="{{ route('projects.create') }}">Create a new project</a>
             @endif
           @endauth
         </div>
