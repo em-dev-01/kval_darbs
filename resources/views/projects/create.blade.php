@@ -17,44 +17,44 @@
     
           <div>
             <x-input-label for="city" :value="__('City')" />
-            <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required
+            <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')"
               autofocus autocomplete="City" />
           </div>
     
           <div>
             <x-input-label for="county" :value="__('County')" />
-            <x-text-input id="county" class="block mt-1 w-full" type="text" name="county" :value="old('county')" required
+            <x-text-input id="county" class="block mt-1 w-full" type="text" name="county" :value="old('county')"
               autofocus autocomplete="County" />
           </div>
     
           <div>
             <x-input-label for="parish" :value="__('Parish')" />
-            <x-text-input id="parish" class="block mt-1 w-full" type="text" name="parish" :value="old('parish')" required
+            <x-text-input id="parish" class="block mt-1 w-full" type="text" name="parish" :value="old('parish')"
               autofocus autocomplete="Parish" />
           </div>
     
           <div>
             <x-input-label for="village" :value="__('Village')" />
-            <x-text-input id="village" class="block mt-1 w-full" type="text" name="village" :value="old('Village')" required
+            <x-text-input id="village" class="block mt-1 w-full" type="text" name="village" :value="old('Village')"
               autofocus autocomplete="Village" />
           </div>
     
           <div>
             <x-input-label for="street" :value="__('Street')" />
-            <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required
+            <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')"
               autofocus autocomplete="Street" />
           </div>
     
           <div>
             <x-input-label for="house" :value="__('House')" /><span>Name or number</span>
-            <x-text-input id="house" class="block mt-1 w-full" type="text" name="house" :value="old('house')" required
+            <x-text-input id="house" class="block mt-1 w-full" type="text" name="house" :value="old('house')"
               autofocus autocomplete="House" />
           </div>
     
           <div>
             <x-input-label for="apartment" :value="__('Apartment')" />
             <x-text-input id="apartment" class="block mt-1 w-full" type="text" name="apartment" :value="old('apartment')"
-              required autofocus autocomplete="Apartment" />
+             autofocus autocomplete="Apartment" />
           </div>
           <!-- Due date -->
     
