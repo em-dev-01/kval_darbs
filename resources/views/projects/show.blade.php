@@ -5,6 +5,11 @@
         {{ $project->title }}
       </div>
       <a href="{{ route('projects.edit', $project->id) }}">Edit project</a>
+      <form method="POST" action="{{ route('projects.destroy', $project) }}">
+        @csrf
+        @method('DELETE')
+        <x-danger-button>Delete</x-danger-button>
+      </form>
     </div>
   </div>
 </x-app-layout>
