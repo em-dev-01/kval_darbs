@@ -13,7 +13,7 @@
               <td>{{ $project->title }}</td>
               <td>{{ $project->due_date }}</td>
               <td>{{ $project->status }}</td>
-              {{-- <td><a href="{{route('users.show', $user->id)}}">View</a></td> --}}
+              <td><a href="{{route('projects.show', $project->id)}}">View</a></td>
             </tr>
           @endforeach
         </table>
