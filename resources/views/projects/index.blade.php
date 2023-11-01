@@ -8,6 +8,7 @@
             <th>Due date</th>
             <th>Status</th>
           </tr>
+
           @foreach ($projects as $project)
             <tr>
               <td>{{ $project->title }}</td>

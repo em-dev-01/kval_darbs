@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Enums\StatusEnum;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Enum;
+use App\Models\User;
 
 class ProjectController extends Controller
 {
@@ -19,12 +20,14 @@ class ProjectController extends Controller
 
   public function create()
   {
-    return view('projects.create');
+    $employees = User::where('role_id', 2 )->get();
+    return view('projects.create', compact('employees'));
   }
 
-  public function show($project)
+  public function show(Project $project)
   {
-    return view('projects.show', ['project' => Project::find($project)]);
+    $project = Project::with('users')->find($project->id);
+    return view('projects.show', ['project' => $project]);
   }
   public function store(Request $request)
   {
@@ -34,14 +37,19 @@ class ProjectController extends Controller
       'status' => [new Enum(StatusEnum::class)],
       'due_date' => 'required|date|after:today',
     ]);
+    $selected_employees = $request->input('selected_employees');
     $project = Project::create($request->all());
+    $project->users()->sync($selected_employees);
     $project->save();
     return to_route('projects.show', ['project' => $project->id]);
   }
 
-  public function edit($project)
+  public function edit(Project $project)
   {
-    return view('projects.edit', ['project' => Project::find($project)]);
+    $project = Project::find($project->id);
+    $employees = User::where('role_id', 2 )->get();
+    $selected_employees = $project->users()->where('role_id', 2)->get();
+    return view('projects.edit', compact('project','employees', 'selected_employees'));
   }
 
   public function update(Request $request, Project $project)
@@ -52,9 +60,18 @@ class ProjectController extends Controller
       'due_date' => 'required|date|after:today',
     ]);
 
+    //pievienot un no?emt darbiniekus, kas str?d? pie projekta
+    $selected_employees = $request->input('selected_employees', []);
+    $current_employees = $project->users()->where('role_id', 2)->pluck('users.id')->toArray();
+    $employeesToDetach = array_diff($current_employees, $selected_employees);
+    $employeesToAttach = array_diff($selected_employees, $current_employees); 
+
+    $project->users()->detach($employeesToDetach);
+    $project->users()->attach($employeesToAttach);
+
     $project->update($request->all());
 
-    return redirect()->route('projects.index')->with('success', 'Project updated successfully.');
+    return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
   }
 
   public function destroy(Project $project)
