@@ -13,7 +13,7 @@ return new class extends Migration
   public function up()
   {
     Schema::table('projects', function (Blueprint $table) {
-      $table->string('status')->default(StatusEnum::STARTED)->change();
+      $table->string('status')->default(StatusEnum::STARTED->value)->change();
     });
   }
 
