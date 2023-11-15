@@ -6,6 +6,7 @@ use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use App\Models\Cost;
 
 class Project extends Model
 {
@@ -31,5 +32,9 @@ class Project extends Model
   public function users()
   {
     return $this->belongsToMany(User::class, 'users_projects', 'project_id', 'user_id');
+  }
+
+  public function costs(){
+    return $this->hasMany(Cost::class);
   }
 }

@@ -21,6 +21,8 @@
       </div>
 
       <a href="{{ route('projects.edit', $project->id) }}">Edit project</a>
+      <a href="{{ route('projects.costs.index', $project->id) }}">Show project costs</a>
+      
       <form method="POST" action="{{ route('projects.destroy', $project) }}">
         @csrf
         @method('DELETE')
