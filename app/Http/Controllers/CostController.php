@@ -19,11 +19,28 @@ class CostController extends Controller
 
     public function store($project_id, Request $request)
     {
+        $request->validate([
+            'unit' => 'required_without:custom_unit',
+            'custom_unit' => 'required_without:unit',
+        ]);
         $total_task_cost = $request->amount * $request->task_cost_per_unit;
         $total_material_cost = $request->amount * $request->material_cost_per_unit;
         $total_cost = $total_task_cost + $total_material_cost;
-        $cost = new Cost($request->all());
-        
+       
+        $cost = new Cost([
+            'task_title' => $request->task_title,
+            'amount' => $request->amount,
+            'task_cost_per_unit' => $request->task_cost_per_unit,
+            'material_cost_per_unit' => $request->material_cost_per_unit,
+            'project_id' => $request->project_id,
+        ]);
+
+        if($request->unit && !$request->custom_unit){
+            $cost->unit = $request->unit;
+        }
+        elseif(!$request->unit && $request->custom_unit){
+            $cost->unit = $request->custom_unit;
+        }
         $cost->total_task_cost = $total_task_cost;
         $cost->total_material_cost = $total_material_cost;
         $cost->total_cost = $total_cost;
