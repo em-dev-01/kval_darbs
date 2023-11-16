@@ -12,7 +12,6 @@ class Cost extends Model
 
     protected $fillable = [
       'task_title',
-      'unit',
       'amount',
       'task_cost_per_unit',
       'material_cost_per_unit',

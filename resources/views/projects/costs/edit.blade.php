@@ -18,8 +18,17 @@
   
           <div>
             <x-input-label for="unit" :value="__('Unit')" />
-            <x-text-input id="unit" class="block mt-1 w-full" type="text" name="unit"
-              :value="old('unit', $cost->unit)" required autofocus autocomplete="unit" />
+            <select name="unit" id="unit" class="block mt-1 w-full" autofocus>
+              <option value=""></option>
+              <option value="m2">m2</option>
+              <option value="m3">m3</option>
+              <option value="m">m</option>
+              <option value="gab">gab</option>
+            </select>
+            <x-input-label for="custom_unit" :value="__('Write your own')"></x-input-label>
+            <x-text-input id="custom_unit" class="block mt-1 w-full" type="text" name="custom_unit"
+              :value="old('custom_unit')" autofocus autocomplete="custom_unit" />
+  
             <x-input-error :messages="$errors->get('unit')" class="mt-2" />
           </div>
   
