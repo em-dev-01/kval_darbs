@@ -35,7 +35,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('projects', ProjectController::class);
 
-    Route::resource('projects.costs', CostController::class);
+    Route::resource('projects.costs', CostController::class)->except('show');
+
+    Route::get('projects/{id}/costs/export', [CostController::class, 'export'])->name('projects.costs.export');
 });
 
 require __DIR__.'/auth.php';
