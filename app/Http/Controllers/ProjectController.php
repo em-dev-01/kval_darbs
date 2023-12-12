@@ -31,17 +31,17 @@ class ProjectController extends Controller
   }
   public function store(Request $request)
   {
-
     $request->validate([
       'title' => 'required|max:255|unique:projects',
       'status' => [new Enum(StatusEnum::class)],
       'due_date' => 'required|date|after:today',
     ]);
+
     $selected_employees = $request->input('selected_employees');
     $project = Project::create($request->all());
     $project->users()->sync($selected_employees);
     $project->save();
-    return to_route('projects.show', ['project' => $project->id]);
+    return view('projects.show', compact('project'));
   }
 
   public function edit(Project $project)

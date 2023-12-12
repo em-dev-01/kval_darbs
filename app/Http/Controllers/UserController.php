@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function showAll(){
-      return view('users.all', [
+    public function index(){
+      return view('users.index', [
         'users' => User::all()
       ]);
     }

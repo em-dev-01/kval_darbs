@@ -1,13 +1,18 @@
-<x-app-layout>
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-        <h1>{{ $project->title }}</h1>
-        @if ($costs->count() == 0)
+@extends('layouts.app')
+@section('content')
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1>{{$project->title}}</h1>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      @if ($costs->count() == 0)
           <div>There are no costs created for this project yet</div>
         @else
-        <table>
-          <tr>
+        <table class="table-light">
+          <tr class="table-light">
             <th>Task title</th>
             <th>Unit</th>
             <th>Amount</th>
@@ -19,7 +24,7 @@
           </tr>
 
           @foreach ($costs as $cost)
-            <tr>
+            <tr class="table-light">
               <td>{{ $cost->task_title }}</td>
               <td>{{ $cost->unit }}</td>
               <td>{{ $cost->amount }}</td>
@@ -27,7 +32,7 @@
               <td>{{ $cost->material_cost_per_unit }}</td>
               <td>{{ $cost->total_task_cost }}</td>
               <td>{{ $cost->total_material_cost }}</td>
-              <td>{{ $cost->total_cost }}</td>
+              <td><b>{{ $cost->total_cost }}</b></td>
               {{-- <td><a href="{{ route('projects.costs.edit', [$project->id, $cost->id]) }}">Edit</a></td>
               <td><form method="POST" action="{{ route('projects.costs.destroy', [$project->id, $cost->id]) }}">
                 @csrf
@@ -37,11 +42,10 @@
             </tr>
           @endforeach
         </table>
-            
         @endif
-      </div>
-      <a href="{{ route('projects.costs.create', $project->id) }}">Add cost</a>
-      <a href="{{ route('projects.costs.export', $project->id) }}">Export costs as excel</a>
     </div>
-  </div>
-</x-app-layout>
+        
+      </div>
+      <a href="{{ route('projects.costs.create', $project->id) }}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Add cost</a>
+      <a href="{{ route('projects.costs.export', $project->id) }}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Export costs as excel</a>
+@endsection

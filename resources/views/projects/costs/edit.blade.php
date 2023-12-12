@@ -1,5 +1,6 @@
-<x-app-layout>
-  <div class="py-12">
+@extends('layouts.app')
+@section('content')
+<div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
         <form method="POST" action="{{ route('projects.costs.update', [$project_id, $cost->id]) }}">
@@ -68,5 +69,5 @@
         </div>
     </div>
   </div>
-  </x-app-layout>
+@endsection
   
