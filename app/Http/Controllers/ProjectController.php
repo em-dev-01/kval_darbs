@@ -13,9 +13,8 @@ class ProjectController extends Controller
 {
   public function index()
   {
-    return view('projects.index', [
-      'projects' => Project::all()
-    ]);
+    $projects = Project::all();
+    return view('projects.index', compact('projects'));
   }
 
   public function create()
@@ -27,8 +26,9 @@ class ProjectController extends Controller
   public function show(Project $project)
   {
     $project = Project::with('users')->find($project->id);
-    return view('projects.show', ['project' => $project]);
+    return view('projects.show', compact('project'));
   }
+  
   public function store(Request $request)
   {
     $request->validate([
@@ -41,12 +41,11 @@ class ProjectController extends Controller
     $project = Project::create($request->all());
     $project->users()->sync($selected_employees);
     $project->save();
-    return view('projects.show', compact('project'));
+    return redirect()->route('projects.show', $project);
   }
 
   public function edit(Project $project)
   {
-    $project = Project::find($project->id);
     $employees = User::where('role_id', 2 )->get();
     $selected_employees = $project->users()->where('role_id', 2)->get();
     return view('projects.edit', compact('project','employees', 'selected_employees'));
@@ -71,7 +70,7 @@ class ProjectController extends Controller
 
     $project->update($request->all());
 
-    return redirect()->route('projects.show', $project->id)->with('success', 'Project updated successfully.');
+    return redirect()->route('projects.show', $project)->with('projectData', $project);
   }
 
   public function destroy(Project $project)

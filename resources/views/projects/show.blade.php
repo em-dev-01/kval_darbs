@@ -10,6 +10,9 @@
     <div id="description">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo delectus dicta assumenda vero facere impedit, nam, nobis neque adipisci voluptates, deleniti ipsum. Pariatur a, voluptatibus quo facilis sint perferendis cupiditate!
     </div>
+    <div>
+      {{ $project->status }}
+    </div>
     <hr>
 
     <div id="actions">
@@ -24,9 +27,9 @@
       @endforeach
     </div>
 
-    <a href="{{route('projects.edit', $project->id)}}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Edit project</a>
+    <a href="{{route('projects.edit', $project)}}" class="btn btn-primary btn-md active" role="button" aria-pressed="true">Edit project</a>
 
-    <a href="{{ route('projects.costs.index', $project->id) }}"  class="btn btn-primary btn-md active" role="button" aria-pressed="true">Show project costs</a>
+    <a href="{{ route('projects.costs.index', $project) }}"  class="btn btn-primary btn-md active" role="button" aria-pressed="true">Show project costs</a>
     
     <form method="POST" action="{{ route('projects.destroy', $project) }}">
       @csrf

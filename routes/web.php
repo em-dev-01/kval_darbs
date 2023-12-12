@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientRequestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
@@ -19,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,6 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('projects.costs', CostController::class)->except('show');
 
     Route::get('projects/{id}/costs/export', [CostController::class, 'export'])->name('projects.costs.export');
+
+    Route::resource('client_requests', ClientRequestController::class)->except('store');
+
 });
+
+Route::post('client_requests/store', [ClientRequestController::class, 'store'])->name('client_requests.store');
 
 require __DIR__.'/auth.php';

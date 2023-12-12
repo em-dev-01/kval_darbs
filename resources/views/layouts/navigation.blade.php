@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark px-4">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            {{ config('app.name', 'AR Builders') }}
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -19,7 +19,7 @@
                 <li class="nav-item"><a href="{{route('dashboard')}}">Dashboard</a></li>
                 <li class="nav-item mx-2"><a href="{{route('projects.index')}}">Projekti</a></li>
                 <li class="nav-item mx-2"><a href="{{route('users.index')}}">Darbinieki</a></li>
-                <li class="nav-item mx-2"><a href="">Pieteikumi</a></li>
+                <li class="nav-item mx-2"><a href="{{route('client_requests.index')}}">Pieteikumi</a></li>
               @endauth
               
             </ul>

@@ -58,10 +58,38 @@
                       <div class="fs-3 fw-bold text-white">Sazines ar mums!</div>
                   </div>
                   <div class="ms-xl-4">
-                      <div class="input-group mb-2">
-                          <input class="form-control" type="text" placeholder="Tava ziņa" aria-label="Email address..." aria-describedby="button-newsletter">
-                          <button class="btn btn-outline-light" id="button-newsletter" type="button">Nosūtīt</button>
-                      </div>
+                      
+                    <form method="POST" action="{{ route('client_requests.store') }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" >
+                            @error('name')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                       
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                            @error('description')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" >
+                            @error('email')
+                                <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    @if(session('success'))
+                        <div class="alert alert-success mt-3">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                   </div>
               </div>
           </aside>
