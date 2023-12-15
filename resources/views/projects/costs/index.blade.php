@@ -33,12 +33,12 @@
               <td>{{ $cost->total_task_cost }}</td>
               <td>{{ $cost->total_material_cost }}</td>
               <td><b>{{ $cost->total_cost }}</b></td>
-              {{-- <td><a href="{{ route('projects.costs.edit', [$project->id, $cost->id]) }}">Edit</a></td>
-              <td><form method="POST" action="{{ route('projects.costs.destroy', [$project->id, $cost->id]) }}">
+              <td><a href="{{ route('projects.costs.edit', [$project->id, $cost]) }}">Edit</a></td>
+              <td><form method="POST" action="{{ route('projects.costs.destroy', [$project->id, $cost]) }}">
                 @csrf
                 @method('DELETE')
                 <x-danger-button>Delete</x-danger-button>
-              </form></td> --}}
+              </form></td>
             </tr>
           @endforeach
         </table>

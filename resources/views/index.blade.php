@@ -85,11 +85,11 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                    @if(session('success'))
+                    {{-- @if(session('success'))
                         <div class="alert alert-success mt-3">
                             {{ session('success') }}
                         </div>
-                    @endif
+                    @endif --}}
                   </div>
               </div>
           </aside>

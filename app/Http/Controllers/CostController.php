@@ -22,6 +22,8 @@ class CostController extends Controller
     public function store($project_id, Request $request)
     {
         $request->validate([
+            'task_title' => 'required|max:255',
+            'amount' => 'required',
             'unit' => 'required_without:custom_unit',
             'custom_unit' => 'required_without:unit',
         ]);
@@ -57,6 +59,8 @@ class CostController extends Controller
     public function update($project_id, Request $request, Cost $cost)
     {
         $request->validate([
+            'task_title' => 'required|max:255',
+            'amount' => 'required',
             'unit' => 'required_without:custom_unit',
             'custom_unit' => 'required_without:unit',
         ]);

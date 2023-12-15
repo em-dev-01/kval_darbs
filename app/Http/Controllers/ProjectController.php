@@ -41,7 +41,7 @@ class ProjectController extends Controller
     $project = Project::create($request->all());
     $project->users()->sync($selected_employees);
     $project->save();
-    return redirect()->route('projects.show', $project);
+    return redirect()->route('projects.show', $project)->with('success', 'Stored successfully');
   }
 
   public function edit(Project $project)
@@ -70,7 +70,7 @@ class ProjectController extends Controller
 
     $project->update($request->all());
 
-    return redirect()->route('projects.show', $project)->with('projectData', $project);
+    return redirect()->route('projects.show', $project)->with('success', 'Successfull');
   }
 
   public function destroy(Project $project)

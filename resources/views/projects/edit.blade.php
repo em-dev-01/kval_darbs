@@ -15,9 +15,9 @@
       {{-- Title --}}
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" name="title" id="title" class="form-control" value="{{old('title', $project->title)}}" required autofocus>
+        <input type="text" name="title" id="title" class="form-control" value="{{old('title', $project->title)}}">
         @error('title')
-            <div class="alert alert-danger">{{ $message }}</div>
+          <div class="alert alert-danger">{{$message}}</div>
         @enderror
       </div>
 
@@ -25,60 +25,62 @@
       {{-- City --}}
       <div class="form-group">
         <label for="city">City</label>
-        <input type="text" name="city" id="city" class="form-control" value="{{old('city', $project->city)}}" autofocus>
+        <input type="text" name="city" id="city" class="form-control" value="{{old('city', $project->city)}}">
       </div>
 
       <div class="form-group">
         <label for="county">County</label>
-        <input type="text" name="county" id="county" class="form-control" value="{{old('county', $project->county)}}" autofocus>
+        <input type="text" name="county" id="county" class="form-control" value="{{old('county', $project->county)}}" >
       </div>
 
       <div class="form-group">
         <label for="parish">Parish</label>
-        <input type="text" name="parish" id="parish" class="form-control" value="{{old('parish', $project->parish)}}" autofocus>
+        <input type="text" name="parish" id="parish" class="form-control" value="{{old('parish', $project->parish)}}" >
       </div>
 
       <div class="form-group">
         <label for="village">Village</label>
-        <input type="text" name="village" id="village" class="form-control" value="{{old('village', $project->village)}}" autofocus>
+        <input type="text" name="village" id="village" class="form-control" value="{{old('village', $project->village)}}" >
       </div>
 
       <div class="form-group">
         <label for="street">Street</label>
-        <input type="text" name="street" id="street" class="form-control" value="{{old('street', $project->street)}}" autofocus>
+        <input type="text" name="street" id="street" class="form-control" value="{{old('street', $project->street)}}" >
       </div>
 
       <div class="form-group">
         <label for="house">House</label>
-        <input type="text" name="house" id="house" class="form-control" value="{{old('house', $project->house)}}" autofocus>
+        <input type="text" name="house" id="house" class="form-control" value="{{old('house', $project->house)}}" >
       </div>
 
       <div class="form-group">
         <label for="apartment">Apartment</label>
-        <input type="text" name="apartment" id="apartment" class="form-control" value="{{old('apartment', $project->apartment)}}" autofocus>
+        <input type="text" name="apartment" id="apartment" class="form-control" value="{{old('apartment', $project->apartment)}}" >
       </div>
 
       <div class="form-group">
         <label for="due_date">Date</label>
         <input class="form-control" id="due_date" name="due_date" placeholder="MM/DD/YYYY" type="date" value="{{old('due_date', $project->due_date)}}">
       </div>
-      @error('due_date')
-            <div class="alert alert-danger">{{ $message }}</div>
+        @error('due_date')
+          <div class="alert alert-danger">{{ $message }}</div>
         @enderror
+        
 
       <div class="form-group">
         <label for="status">Status</label>
-        <select class="form-control" id="status" name="status" required>
+        <select class="form-control" id="status" name="status">
           @foreach (App\Enums\StatusEnum::values() as $enumValue)
           <option value="{{ $enumValue }}"
             {{ old('status', App\Enums\StatusEnum::STARTED) == $enumValue ? 'selected' : '' }}>{{ $enumValue }}
           </option>
         @endforeach
         </select>
-      </div>
-     @error('status')
-            <div class="alert alert-danger">{{ $message }}</div>
+        @error('status')
+          <div class="alert alert-danger">{{ $message }}</div>
         @enderror
+      </div>
+        
 
       @if (count($employees) > 0)
       <div class="form-group">

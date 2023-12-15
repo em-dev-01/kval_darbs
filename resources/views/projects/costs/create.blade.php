@@ -1,72 +1,77 @@
 @extends('layouts.app')
 @section('content')
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Create cost</h1>
+  </div>
 
-<div class="py-12">
-	<div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-		<div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-			<form method="POST" action="{{ route('projects.costs.store', $project_id) }}">
-				@csrf
-				<!-- Task title -->
+<div class="container">
+	<div class="row">
+		<form method="POST" action="{{ route('projects.costs.store', $project_id) }}">
+			@csrf
+			<!-- Task title -->
 
-				<div>
-					<x-input-label for="task_title" :value="__('Task title')" />
-					<x-text-input id="task_title" class="block mt-1 w-full" type="text" name="task_title"
-						:value="old('task_title')" required autofocus autocomplete="task_title" />
-					<x-input-error :messages="$errors->get('task_title')" class="mt-2" />
-				</div>
+			<div class="form-group">
+        <label for="task_title">Task title</label>
+        <input type="text" name="task_title" id="task_title" class="form-control" value="{{old('task_title')}}">
+        @error('task_title')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+      </div>
 
-				<!-- Unit -->
+			<!-- Unit -->
 
-				<div>
-					<x-input-label for="unit" :value="__('Unit')" />
-					<select name="unit" id="unit" class="block mt-1 w-full" autofocus>
-						<option value=""></option>
-						<option value="m2">m2</option>
-						<option value="m3">m3</option>
-						<option value="m">m</option>
-						<option value="gab">gab</option>
-					</select>
-					<x-input-label for="custom_unit" :value="__('Write your own')"></x-input-label>
-					<x-text-input id="custom_unit" class="block mt-1 w-full" type="text" name="custom_unit"
-						:value="old('custom_unit')" autofocus autocomplete="custom_unit" />
+			<div class="form-group">
+				<label for="unit">Unit</label>
+				<select name="unit" id="unit" class="from-control">
+					<option value=""></option>
+					<option value="m2">m2</option>
+					<option value="m3">m3</option>
+					<option value="m">m</option>
+					<option value="gab">gab</option>
+				</select>
+				<label for="custom_unit">Write your own<label>
+				<input id="custom_unit" class="form-control" type="text" name="custom_unit"
+					value={{old('custom_unit')}}>
 
-					<x-input-error :messages="$errors->get('unit')" class="mt-2" />
-				</div>
-
-				<!-- Amount -->
-
-				<div>
-					<x-input-label for="amount" :value="__('Amount')" />
-					<x-text-input id="amount" class="block mt-1 w-full" type="number" name="amount"
-						:value="old('amount')" required autofocus autocomplete="amount" />
-					<x-input-error :messages="$errors->get('amount')" class="mt-2" />
-				</div>
-
-				<!-- Task cost per unit -->
-
-				<div>
-					<x-input-label for="task_cost_per_unit" :value="__('Task cost per unit')" />
-					<x-text-input id="task_cost_per_unit" class="block mt-1 w-full" type="number" name="task_cost_per_unit"
-						:value="old('task_cost_per_unit')" required autofocus autocomplete="task_cost_per_unit" />
-					<x-input-error :messages="$errors->get('task_cost_per_unit')" class="mt-2" />
-				</div>
-			
-				<!-- Material cost per unit -->
-
-				<div>
-					<x-input-label for="material_cost_per_unit" :value="__('Material cost per unit')" />
-					<x-text-input id="material_cost_per_unit" class="block mt-1 w-full" type="number" name="material_cost_per_unit"
-						:value="old('material_cost_per_unit')" required autofocus autocomplete="material_cost_per_unit" />
-					<x-input-error :messages="$errors->get('material_cost_per_unit')" class="mt-2" />
-				</div>
-
-				<div class="flex items-center justify-end mt-4">
-					<x-primary-button class="ml-4">
-						{{ __('Create') }}
-					</x-primary-button>
-				</div>
-				</form>
+				@error('unit')
+					<div class="alert alert-danger">{{ $message }}</div>
+				@enderror
 			</div>
+
+			<!-- Amount -->
+
+			<div class="form-group">
+				<label for="amount" class="form-label">{{ __('Amount') }}</label>
+				<input id="amount" class="form-control" type="number" name="amount" value="{{ old('amount') }}">
+				@error('amount')
+					<div class="alert alert-danger">{{ $message }}</div>
+				@enderror
+		</div>
+		
+
+			<!-- Task cost per unit -->
+
+			<div class="form-group">
+				<label for="task_cost_per_unit" class="form-label">{{ __('Task cost per unit') }}</label>
+				<input id="task_cost_per_unit" class="form-control" type="number" name="task_cost_per_unit"
+					value="{{ old('task_cost_per_unit') }}">
+		</div>
+		
+		
+			<!-- Material cost per unit -->
+
+			<div class="form-group">
+				<label for="material_cost_per_unit" class="form-label">{{ __('Material cost per unit') }}</label>
+				<input id="material_cost_per_unit" class="form-control" type="number" name="material_cost_per_unit"
+					value="{{ old('material_cost_per_unit') }}">
+			</div>
+		
+
+		<button type="submit" class="btn btn-primary">Submit</button>
+		</form>
+
 	</div>
 </div>
+</main>
 @endsection

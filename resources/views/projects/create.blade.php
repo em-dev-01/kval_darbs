@@ -22,54 +22,57 @@
       <form action="{{route('projects.store')}}" method="post">
         @csrf
       {{-- Title --}}
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" required autofocus>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" class="form-control" value="{{old('title')}}" >
         @error('title')
-            <div class="alert alert-danger">{{ $message }}</div>
+          <div class="alert alert-danger">{{$message}}</div>
         @enderror
-      </div>
+        </div>
 
       {{-- Adress --}}
       {{-- City --}}
       <div class="form-group">
         <label for="city">City</label>
-        <input type="text" name="city" id="city" class="form-control" value="{{old('city')}}" autofocus>
+        <input type="text" name="city" id="city" class="form-control" value="{{old('city')}}" >
       </div>
 
       <div class="form-group">
         <label for="county">County</label>
-        <input type="text" name="county" id="county" class="form-control" value="{{old('county')}}" autofocus>
+        <input type="text" name="county" id="county" class="form-control" value="{{old('county')}}" >
       </div>
 
       <div class="form-group">
         <label for="parish">Parish</label>
-        <input type="text" name="parish" id="parish" class="form-control" value="{{old('parish')}}" autofocus>
+        <input type="text" name="parish" id="parish" class="form-control" value="{{old('parish')}}" >
       </div>
 
       <div class="form-group">
         <label for="village">Village</label>
-        <input type="text" name="village" id="village" class="form-control" value="{{old('village')}}" autofocus>
+        <input type="text" name="village" id="village" class="form-control" value="{{old('village')}}" >
       </div>
 
       <div class="form-group">
         <label for="street">Street</label>
-        <input type="text" name="street" id="street" class="form-control" value="{{old('street')}}" autofocus>
+        <input type="text" name="street" id="street" class="form-control" value="{{old('street')}}" >
       </div>
 
       <div class="form-group">
         <label for="house">House</label>
-        <input type="text" name="house" id="house" class="form-control" value="{{old('house')}}" autofocus>
+        <input type="text" name="house" id="house" class="form-control" value="{{old('house')}}" >
       </div>
 
       <div class="form-group">
         <label for="apartment">Apartment</label>
-        <input type="text" name="apartment" id="apartment" class="form-control" value="{{old('apartment')}}" autofocus>
+        <input type="text" name="apartment" id="apartment" class="form-control" value="{{old('apartment')}}" >
       </div>
 
       <div class="form-group">
         <label for="due_date">Date</label>
         <input class="form-control" id="due_date" name="due_date" placeholder="MM/DD/YYYY" type="date">
+        @error('due_date')
+          <div class="alert alert-danger">{{$message}}</div>
+        @enderror
       </div>
 
       <div class="form-group">
@@ -81,11 +84,14 @@
           </option>
         @endforeach
         </select>
+        @error('status')
+          <div class="alert alert-danger">{{$message}}</div>
+        @enderror
       </div>
 
       @if (count($employees) > 0)
       <div class="form-group">
-        <label>List of employees working on this project</label>
+        <span>List of employees working on this project</span>
         @foreach ($employees as $employee)
         <div class="form-check">
             <input type="checkbox" name="selected_employees[]" value="{{ $employee->id }}" class="form-check-input" id="employee{{$employee->id}}">
