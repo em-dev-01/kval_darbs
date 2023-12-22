@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">  
 
     <title>{{ config('app.name', 'AR Builders') }}</title>
 
@@ -28,19 +28,15 @@
 <body>
     <div id="app">
         @include('layouts.navigation')
-        
-
-        <main class="py-4">
+        <main class="">
             <div class="container-fluid">
                 <div class="row">
                     @auth
                         @include('layouts.sidebar')
                     @endauth
-                    
                     @yield('content')
                 </div>
             </div>
-            
         </main>
     </div>
 </body>

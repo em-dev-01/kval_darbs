@@ -6,3 +6,29 @@
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
+
+.navbar-nav .nav-item.active > .nav-link {
+  font-weight: bold; /* Make the text bold */
+  background-color: #d8f3dc; /* Background color */
+  color: #000; /* Text color */
+  border-radius: 5px; /* Rounded background corners */
+}
+
+.nav-link{
+  padding: 3px;
+  color: #d8f3dc;
+  text-decoration: none;
+}
+
+.nav-item.dropdown{
+  align-self: center;
+}
+
+#sidebarMenu{
+  background-color: #081c15;
+  min-height: 100vh;
+}
+.container-fluid{
+  overflow-y: auto; /* Allow vertical scrolling if needed */
+}
+

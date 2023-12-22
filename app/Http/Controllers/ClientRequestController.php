@@ -41,7 +41,7 @@ class ClientRequestController extends Controller
         $clientRequest = new ClientRequest($request->all());
         $clientRequest->save();
 
-        return redirect()->route('index')->with('success', 'Form submitted successfully!');
+        return redirect()->route('welcome')->with('success', 'Form submitted successfully!');
     }
 
     public function destroy(ClientRequest $clientRequest){
