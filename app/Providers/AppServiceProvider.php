@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\ClientRequest;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('layouts.sidebar', function ($view) {
+            $unreadCount = ClientRequest::where('read_status', 'unread')->count();
+            $view->with('unreadCount', $unreadCount);
+        });
     }
 }

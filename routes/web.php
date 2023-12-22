@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('client_requests', ClientRequestController::class)->except('store');
 
+    Route::post('/requests/mark_all_as_read', [ClientRequestController::class, 'markAllAsRead']);
 });
 
 Route::post('client_requests/store', [ClientRequestController::class, 'store'])->name('client_requests.store');

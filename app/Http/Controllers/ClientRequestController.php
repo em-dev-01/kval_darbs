@@ -48,4 +48,10 @@ class ClientRequestController extends Controller
         $clientRequest->delete();
         return redirect()->route('client_requests.index')->with('success', 'Request deleted successfully!');
     }
+
+    public function markAllAsRead()
+    {
+        ClientRequest::where('read_status', 'unread')->update(['read_status' => 'read']);
+        return redirect()->back()->with('success', 'All requests marked as read');
+    }
 }

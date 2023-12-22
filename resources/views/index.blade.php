@@ -35,7 +35,6 @@
                   <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                
                   <div class="carousel-item active">
                     <img class="d-block w-100 h-50" src="https://cdn.pixabay.com/photo/2015/12/01/20/28/road-1072823_1280.jpg" alt="Third slide">
                     <img class="d-block w-100 h-50" src="https://images.pexels.com/photos/18752376/pexels-photo-18752376/free-photo-of-florence.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Fourth slide">
@@ -53,7 +52,7 @@
              
           <!-- Call to action-->
           <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5" id="contacts">
-              <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+              <div class="flex align-items-center flex-column flex-xl-row text-center text-xl-start">
                   <div class="mb-4 mb-xl-0">
                       <div class="fs-3 fw-bold text-white">Sazines ar mums!</div>
                   </div>
