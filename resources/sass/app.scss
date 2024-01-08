@@ -24,11 +24,61 @@
   align-self: center;
 }
 
-#sidebarMenu{
-  background-color: #081c15;
-  min-height: 100vh;
-}
 .container-fluid{
   overflow-y: auto; /* Allow vertical scrolling if needed */
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.btn-primary{
+  background-color: #1B4332 !important; 
+  border: #1B4332 !important;
+}
+
+.btn-danger{
+  border: red;
+}
+.btn-danger:hover{
+  background-color: rgb(134, 0, 0);
+}
+.custom-delete{
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}
+.btn-primary:hover{
+  background-color: #40916C !important; 
+}
+
+header {
+  background-color: #52B788;
+}
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+}
+
+#contacts {
+  background-color: #081C15;
+  color: #D8F3DC;
+}
+
+footer {
+  background-color: #081C15;
+  color: #D8F3DC;
+}
+
+.carousel-item img{
+  width: 100px;
+  height: 100px;
+}

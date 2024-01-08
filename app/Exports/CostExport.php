@@ -32,12 +32,12 @@ class CostExport implements FromCollection, WithEvents, WithCustomStartCell
         ->where('project_id', $this->project_id)
         ->get();
 
-        return collect([$costs]);
+        return $costs;
     }
 
     public function startCell(): string
     {
-        return 'B13';
+        return 'B10';
     }
 
     public function registerEvents(): array
@@ -45,16 +45,7 @@ class CostExport implements FromCollection, WithEvents, WithCustomStartCell
         $costs = $this->collection()->toArray();
         return [
             AfterSheet::class => function (AfterSheet $event) use ($costs) {
-                // Merge cells for "darbu izmaksu tāme"
-                $event->sheet->mergeCells('A1:J2');
-                $event->sheet->getStyle('A1:J2')->getAlignment()->setHorizontal('center');
-                $event->sheet->setCellValue('A1', 'DARBU IZMAKSU TĀME');
 
-                $event->sheet->mergeCells('A3:J3');
-                $event->sheet->getStyle('A3:J3')->getAlignment()->setHorizontal('center');
-                $event->sheet->setCellValue('A3', 'SIA "AR Builders"');
-
-                // Merge cells for table headers
                 // darbu nosaukums
                 $event->sheet->mergeCells('B7:B9');
                 $event->sheet->getStyle('B7:B9')->getAlignment()->setHorizontal('center');
@@ -97,9 +88,22 @@ class CostExport implements FromCollection, WithEvents, WithCustomStartCell
 
                 //styling
 
-                $event->sheet->getColumnDimension('B')->setAutoSize(true); // Auto-size column B on content
-
-               
+                for ($column = 'A'; $column <= 'J'; $column++) {
+                    $event->sheet->getColumnDimension($column)->setAutoSize(true);
+                    $event->sheet->getStyle($column)->getAlignment()->setHorizontal('center');
+                }
+                $filledRows = 'B7:J' . ($row_count + 9);    
+                $event->sheet->getStyle($filledRows)->applyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => 'thin',
+                            'color' => ['argb' => '000000'],
+                        ],
+                    ],
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]);
             },
         ];
     }

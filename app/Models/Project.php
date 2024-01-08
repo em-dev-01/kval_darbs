@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use App\Enums\StatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Cost;
+use App\Models\Problem;
+use App\Models\ClientRequest;
 
 class Project extends Model
 {
@@ -14,6 +15,7 @@ class Project extends Model
 
   protected $fillable = [
     'title',
+    'description',
     'city',
     'county',
     'parish',
@@ -21,12 +23,8 @@ class Project extends Model
     'street',
     'house',
     'apartment',
-    'due_date',
-    'status',
-  ];
-
-  protected $casts = [
-    'status' => StatusEnum::class
+    'client_name',
+    'client_email'
   ];
 
   public function users()
@@ -36,5 +34,13 @@ class Project extends Model
 
   public function costs(){
     return $this->hasMany(Cost::class);
+  }
+
+  public function problems(){
+    return $this->hasMany(Problem::class);
+  }
+
+  public function client_request(){
+    return $this->hasOne(ClientRequest::class);
   }
 }

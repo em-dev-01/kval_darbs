@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('layouts.sidebar', function ($view) {
-            $unreadCount = ClientRequest::where('read_status', 'unread')->count();
+        View::composer('layouts.navigation', function ($view) {
+            $unreadCount = ClientRequest::where('read_status', false)->count();
             $view->with('unreadCount', $unreadCount);
         });
     }

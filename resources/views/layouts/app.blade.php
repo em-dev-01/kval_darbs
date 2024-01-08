@@ -31,9 +31,6 @@
         <main class="">
             <div class="container-fluid">
                 <div class="row">
-                    @auth
-                        @include('layouts.sidebar')
-                    @endauth
                     @yield('content')
                 </div>
             </div>

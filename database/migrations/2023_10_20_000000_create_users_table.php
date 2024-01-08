@@ -15,14 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
-            $table->string('company_name');
             $table->string('email')->unique();
-            $table->bigInteger('phone');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->bigInteger('phone')->nullable();
             $table->string('password');
-            $table->integer('role');
-            $table->foreign('role')->references('id')->on('roles');
-            $table->rememberToken();
+            $table->integer('role_id');
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->boolean('accepted_status')->default(false);
             $table->timestamps();
         });
     }

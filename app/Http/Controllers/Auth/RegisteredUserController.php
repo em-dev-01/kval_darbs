@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Propaganistas\LaravelPhone\Rules\Phone;
 
 class RegisteredUserController extends Controller
 {
@@ -32,15 +33,16 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone'=> ['required', 'phone'],
+            'password' => [Rules\Password::defaults(),'confirmed'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'last_name' => $request->last_name,
-            'company_name' => $request->company_name,
-            'phone' => $request->phone_number,
+            'phone' => $request->phone,
             'role_id' => $request->role,
             'email' => $request->email,
             'password' => Hash::make($request->password)
@@ -50,8 +52,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
+        //Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect()->route('welcome')->with('success', 'Reģistrācija veiksmīga!');
     }
 }

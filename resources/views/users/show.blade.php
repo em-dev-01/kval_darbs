@@ -1,9 +1,32 @@
-<x-app-layout>
-  <div class="py-12">
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4">
-        {{ $user->name }}
-      </div>
-    </div>
-  </div>
-</x-app-layout>
+@extends('layouts.app')
+@section('content')
+    <main class="col-md-9 mx-auto col-lg-10 px-md-4">
+        <div class="chartjs-size-monitor">
+            <div class="chartjs-size-monitor-expand">
+                <div class=""></div>
+            </div>
+            <div class="chartjs-size-monitor-shrink">
+                <div class=""></div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2">{{ $user->name }} {{ $user->last_name }} {{ $user->accepted_status }}</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+
+                <form method="POST" action="{{ route('users.accept', $user) }}" style="display: inline">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn btn-primary">Accept</button>
+                </form>
+                <form method="POST" action="{{ route('users.deny', $user) }}" style="display: inline">
+                    @csrf
+                    @method('POST')
+                    <button type="submit" class="btn btn-danger">Deny</button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+@endsection

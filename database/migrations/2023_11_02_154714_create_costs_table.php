@@ -13,17 +13,25 @@ return new class extends Migration
     {
         Schema::create('costs', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->string('task_title');
             $table->string('unit');
-            $table->decimal('amount', 9, 2);
-            $table->decimal('task_cost_per_unit', 9, 2)->nullable();
-            $table->decimal('material_cost_per_unit', 9, 2)->nullable();
-            $table->decimal('total_task_cost', 9, 2)->nullable();
-            $table->decimal('total_material_cost', 9, 2)->nullable();
-            $table->decimal('total_cost', 9, 2);
+            $table->decimal('amount', 6, 2);
+
+            $table->decimal('task_cost_per_unit', 6, 2)->nullable();
+            $table->decimal('material_cost_per_unit', 6, 2)->nullable();
+
+            $table->decimal('total_task_cost', 10 , 2)->nullable();
+            $table->decimal('total_material_cost', 10 , 2)->nullable();
+
+            $table->decimal('total_unit_cost', 9, 2)->nullable();
+
+            $table->decimal('total_cost', 11, 2);
+            
             $table->integer('project_id');
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +26,7 @@ class User extends Authenticatable
         'role_id',
         'email',
         'password',
+        'accepted_status',
     ];
 
     /**
@@ -48,6 +48,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function isManager(){
+      return ($this->role_id === 1);
+    }
 
     public function role(): BelongsTo {
       return $this->belongsTo(Role::class); 

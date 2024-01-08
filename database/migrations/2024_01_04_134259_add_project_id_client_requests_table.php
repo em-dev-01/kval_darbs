@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('costs', function (Blueprint $table) {
-            $table->dropColumn('title');
+        Schema::table('client_requests', function (Blueprint $table) {
+            $table->bigInteger('project_id')->nullable();
+            $table->foreign('project_id')
+                ->references('id')
+                ->on('projects')
+                ->onDelete('cascade');
         });
     }
 

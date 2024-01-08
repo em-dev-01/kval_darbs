@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('email');
             $table->string('status')->default(ClientRequestStatusEnum::PENDING);
+            $table->string('read_status')->default(false);
             $table->timestamps();
         });
     }

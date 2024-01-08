@@ -1,94 +1,77 @@
-@extends('layouts.app')
-@section('content')
-<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Edit cost</h1>
-  </div>
+<div class="modal fade" id="editCostModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModal">Edit Cost</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    onclick="$('.alert-danger').remove(); "></button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        @isset($cost)
+                            <form method="POST" id="editForm">
+                                @csrf
+                                @method('PUT')
 
-<div class="container">
-	<div class="row">
-        <form method="POST" action="{{ route('projects.costs.update', [$project_id, $cost]) }}">
-          @csrf
-          @method('PUT')
-          <!-- Task title -->
+                                <div class="form-group">
+                                    <label for="edit_task_title">Darba nosaukums</label>
+                                    <input type="text" name="task_title" id="edit_task_title" class="form-control"
+                                        value="{{ old('task_title', $cost->task_title) }}">
+                                    @error('task_title')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-			<div class="form-group">
-        <label for="task_title">Task title</label>
-        <input type="text" name="task_title" id="task_title" class="form-control" value="{{old('task_title', $cost->task_title)}}" required autofocus>
-        @error('task_title')
-          <div class="alert alert-danger">{{ $message }}</div>
-        @enderror
-      </div>
+                                <div class="form-group">
+                                    <label for="edit_unit">Mērvienība</label>
+                                    <select name="unit" id="edit_unit" class="from-control">
+                                        <option value=""></option>
+                                        <option value="m2" {{ old('unit', $cost->unit) == 'm2' ? 'selected' : '' }}>m2</option>
+                                        
+                                        <option value="m3" {{ old('unit', $cost->unit) == 'm3' ? 'selected' : '' }}>m3</option>
+                                        
+                                        <option value="m" {{ old('unit', $cost->unit) == 'm' ? 'selected' : '' }}>m</option>
+                                        
+                                        <option value="gab" {{ old(' unit', $cost->unit) == 'gab' ? 'selected' : '' }}>gab</option>
+                                    </select>
+                                    @error('unit')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
 
-			<!-- Unit -->
+                                    <label for="edit_custom_unit">Cita mērvienība<label>
+                                            <input id="edit_custom_unit" class="form-control" type="text" name="custom_unit">
+                                            @error('custom_unit')
+                                                <div class="alert alert-danger">{{ $message }}</div>
+                                            @enderror
+                                </div>
 
-			<div class="form-group">
-				<label for="unit">Unit</label>
-				<select name="unit" id="unit" class="from-control" autofocus>
-					<option value=""></option>
-					<option value="m2">m2</option>
-					<option value="m3">m3</option>
-					<option value="m">m</option>
-					<option value="gab">gab</option>
-				</select>
-				<label for="custom_unit">Write your own<label>
-				<input id="custom_unit" class="form-control" type="text" name="custom_unit"
-					value={{old('custom_unit', $cost->custom_unit)}}>
+                                <div class="form-group">
+                                    <label for="edit_amount" class="form-label">Daudzums</label>
+                                    <input id="edit_amount" class="form-control" type="number" name="amount">
+                                    @error('amount')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
 
-				@error('unit')
-					<div class="alert alert-danger">{{ $message }}</div>
-				@enderror
-        @error('custom_unit')
-					<div class="alert alert-danger">{{ $message }}</div>
-				@enderror
-			</div>
+                                <div class="form-group">
+                                    <label for="edit_task_cost_per_unit" class="form-label">Darba vienības izmaksas</label>
+                                    <input id="edit_task_cost_per_unit" class="form-control" type="number"
+                                        name="task_cost_per_unit">
+                                </div>
 
-			<!-- Amount -->
-
-			<div class="form-group">
-				<label for="amount" class="form-label">{{ __('Amount') }}</label>
-				<input id="amount" class="form-control" type="number" name="amount" value="{{ old('amount', $cost->amount) }}"
-						required autofocus autocomplete="amount">
-				@if($errors->has('amount'))
-						<div class="invalid-feedback">
-								{{ $errors->first('amount') }}
-						</div>
-				@endif
-		</div>
-		
-
-			<!-- Task cost per unit -->
-
-			<div class="form-group">
-				<label for="task_cost_per_unit" class="form-label">{{ __('Task cost per unit') }}</label>
-				<input id="task_cost_per_unit" class="form-control" type="number" name="task_cost_per_unit"
-							 value="{{ old('task_cost_per_unit', $cost->task_cost_per_unit) }}" required autofocus autocomplete="task_cost_per_unit">
-				@if($errors->has('task_cost_per_unit'))
-						<div class="invalid-feedback">
-								{{ $errors->first('task_cost_per_unit') }}
-						</div>
-				@endif
-		</div>
-		
-		
-			<!-- Material cost per unit -->
-
-			<div class="form-group">
-				<label for="material_cost_per_unit" class="form-label">{{ __('Material cost per unit') }}</label>
-				<input id="material_cost_per_unit" class="form-control" type="number" name="material_cost_per_unit"
-							 value="{{ old('material_cost_per_unit', $cost->material_cost_per_unit) }}" required autofocus autocomplete="material_cost_per_unit">
-				@if($errors->has('material_cost_per_unit'))
-						<div class="invalid-feedback">
-								{{ $errors->first('material_cost_per_unit') }}
-						</div>
-				@endif
-		</div>
-		
-
-		<button type="submit" class="btn btn-primary">Submit</button>
-
-          </form>
+                                <div class="form-group">
+                                    <label for="edit_material_cost_per_unit" class="form-label">Materiāla vienības
+                                        izmaksas</label>
+                                    <input id="edit_material_cost_per_unit" class="form-control" type="number"
+                                        name="material_cost_per_unit">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Saglabāt</button>
+                            </form>
+                        @endisset
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</main>
-@endsection
+</div>

@@ -14,9 +14,16 @@ return new class extends Migration
     Schema::create('projects', function (Blueprint $table) {
       $table->id();
       $table->string('title');
-      $table->string('address');
-      $table->date('due_date');
-      $table->enum('status', ['Started', 'In progress', 'Finished']);
+      $table->text('description');
+      $table->string('city')->nullable();
+      $table->string('county')->nullable();
+      $table->string('parish')->nullable();
+      $table->string('village')->nullable();
+      $table->string('street')->nullable();
+      $table->string('house')->nullable();
+      $table->string('apartment')->nullable();
+      $table->string('client_name')->nullable();
+      $table->string('client_email')->nullable();
       $table->timestamps();
     });
   }

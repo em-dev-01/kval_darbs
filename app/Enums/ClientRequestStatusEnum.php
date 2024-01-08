@@ -4,9 +4,9 @@ namespace App\Enums;
 
 enum ClientRequestStatusEnum: string
 {
-  case ACCEPTED = 'Accepted';
-  case DENIED = 'Denied';
-  case PENDING = 'Pending';
+  case ACCEPTED = 'Apstiprināts';
+  case DENIED = 'Noraidīts';
+  case PENDING = 'Gaida';
 
   public static function values(): array
   {

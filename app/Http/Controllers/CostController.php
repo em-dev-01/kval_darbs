@@ -12,7 +12,7 @@ class CostController extends Controller
 {
     public function index($project_id){
         $project = Project::where('id', $project_id)->first();
-        $costs = Cost::where('project_id', $project_id)->get();
+        $costs = Cost::where('project_id', $project_id)->orderBy('created_at', 'asc')->get();
         return view('projects.costs.index', compact('project', 'costs'));
     }
     public function create($project_id){
@@ -23,11 +23,14 @@ class CostController extends Controller
     {
         $request->validate([
             'task_title' => 'required|max:255',
-            'amount' => 'required',
-            'unit' => 'required_without:custom_unit',
-            'custom_unit' => 'required_without:unit',
+            'amount' => 'required|between:0,9999.99',
+            'unit' => 'prohibited_unless:custom_unit,null|required_without:custom_unit',
+            'custom_unit' => 'prohibited_unless:unit,null|required_without:unit',
+            'material_cost_per_unit' => 'nullable|numeric|between:0,9999.99', 
+            'task_cost_per_unit' => 'nullable|numeric|between:0,9999.99',
         ]);
 
+        //kopējo maksu aprēķini
         $total_unit_cost = $request->material_cost_per_unit+$request->task_cost_per_unit;
         $total_task_cost = $request->amount * $request->task_cost_per_unit;
         $total_material_cost = $request->amount * $request->material_cost_per_unit;
@@ -53,16 +56,28 @@ class CostController extends Controller
 
     public function edit($project_id, Cost $cost)
     {
-        return view('projects.costs.edit', compact('project_id', 'cost'));
+        $costDetails = [
+            'cost_id' => $cost->id,
+            'task_title' => $cost->task_title,
+            'unit' => $cost->unit,
+            'custom_unit' => $cost->custom_unit,
+            'amount' => $cost->amount,
+            'material_cost_per_unit' => $cost->material_cost_per_unit,
+            'task_cost_per_unit' => $cost->task_cost_per_unit,
+            'project_id' => $project_id,
+        ];
+        return response()->json($costDetails);
     }
 
     public function update($project_id, Request $request, Cost $cost)
     {
         $request->validate([
             'task_title' => 'required|max:255',
-            'amount' => 'required',
-            'unit' => 'required_without:custom_unit',
-            'custom_unit' => 'required_without:unit',
+            'amount' => 'required|between:0,9999.99',
+            'unit' => 'prohibited_unless:custom_unit,null|required_without:custom_unit',
+            'custom_unit' => 'prohibited_unless:unit,null|required_without:unit',
+            'material_cost_per_unit' => 'nullable|numeric|between:0,9999.99', 
+            'task_cost_per_unit' => 'nullable|numeric|between:0,9999.99',
         ]);
 
         if($request->unit && !$request->custom_unit){
@@ -72,8 +87,13 @@ class CostController extends Controller
             $cost->unit = $request->custom_unit;
         }
 
+        $cost->total_unit_cost = $request->material_cost_per_unit+$request->task_cost_per_unit;
+        $cost->total_task_cost = $request->amount * $request->task_cost_per_unit;
+        $cost->total_material_cost = $request->amount * $request->material_cost_per_unit;
+        $cost->total_cost = $cost->total_task_cost + $cost->total_material_cost;
+
         $cost->update($request->except('unit'));
-        return redirect()->route('projects.costs.index', $project_id);
+        return response()->json();
     }
 
     public function destroy($project_id, Cost $cost)
@@ -83,6 +103,7 @@ class CostController extends Controller
     }
 
     public function export($project_id){
-        return Excel::download(new CostExport($project_id), 'costs.xlsx');
+        $project = Project::find($project_id)->title;
+        return Excel::download(new CostExport($project_id),  $project.' izmaksas.xlsx');
     }
 }

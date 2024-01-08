@@ -1,35 +1,28 @@
 @extends('layouts.app')
 @section('content')
-  
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+    <main class="col-md-9 col-lg-10 mx-auto px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+      @include('components.success-alert')
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Projects</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          <div class="btn-group me-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-          </div>
-          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar align-text-bottom" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            This week
-          </button>
-        </div>
+        <h1 class="h2">Projekti</h1>
       </div>
-
       <div class="container">
         <div class="row">
+          @if (count($projects)>0)
           @foreach ($projects as $project)
-            <div class="col-lg-4 mb-4">
+            <div class="col-lg-6 mb-4">
             <div class="card">
-              <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title">{{$project->title}}</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut eum similique repellat a laborum, rerum voluptates ipsam eos quo tempore iusto dolore modi dolorum in pariatur. Incidunt repellendus praesentium quae!</p>
-                <a href="{{route('projects.show', $project)}}" class="btn btn-outline-success btn-sm">Open</a>
+                <hr>
+                <p class="card-text">{{$project->description}}</p>
+                <a href="{{route('projects.show', $project)}}" class="btn btn-outline-success btn-md">Skatīt</a>
               </div>
             </div>
           </div>
           @endforeach
+          @else
+            <div>Nav pievienots neviens projekts</div>
+          @endif
         </div>
       </div>
     </main>
